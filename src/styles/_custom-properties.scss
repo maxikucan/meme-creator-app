@@ -1,0 +1,25 @@
+@use './variables';
+
+:root {
+
+	// Sizing
+    --mainPadding: 20px;
+	--contentPadding: 40px;
+	--sidebarWidth: 272px;
+	--sidebarWidth-mobile: 60%;
+	--sidebar-item-width: 200px;
+	--product-list-table-padding: 5px;
+	--table-cells-height: 80px;
+
+	--scrollbar-background: #d9d9d9;
+	
+	--main-border: 1px solid rgba(140, 140, 140, 0.192);
+	--main-border-color: rgba(140, 140, 140, 0.192);
+
+    @media #{variables.media-query(max, lg)} {
+		--contentPadding: 20px;
+		--main-padding: 10px;
+		--sidebarWidth: 70%;
+		--product-list-table-padding: 10px;
+	}
+}

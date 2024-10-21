@@ -1,0 +1,5 @@
+.memesListContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minMax(300px, 1fr));
+    gap: .5em;
+}
