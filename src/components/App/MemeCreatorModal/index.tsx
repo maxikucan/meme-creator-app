@@ -18,6 +18,7 @@ export function MemeCreatorModal(props: MemeCreatorModalProps) {
 		username: import.meta.env.VITE_API_USERNAME,
 		password: import.meta.env.VITE_API_PASSWORD,
 		template_id: props.id as string,
+		max_font_size: 40,
 		text0: textData[0],
 		text1: textData[1],
 		text2: textData[2],
