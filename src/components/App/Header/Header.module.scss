@@ -1,0 +1,28 @@
+@use '/src/styles/variables/' as variables;
+
+.headerContainer {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    align-items: center;
+    padding: 1em 2em 2em;
+
+    .input {
+        width: 50%;
+
+        @media #{variables.media-query(max, xxl)} {
+           width: 90%;
+          
+        }
+
+        @media #{variables.media-query(max, xl)} {
+            width: 90%;
+            margin-top: 1em;
+        }
+    }
+
+    @media #{variables.media-query(max, xl)} {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 1em;
+    }
+}

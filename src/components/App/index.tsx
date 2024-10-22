@@ -4,6 +4,7 @@ import { IMeme, IMemesResponse } from '@/interfaces/meme';
 import { MemeCreatorModal } from './MemeCreatorModal';
 import styles from './App.module.scss';
 import { useFetch } from '@/hooks';
+import { Header } from './Header';
 
 export function App() {
 	const [memes, setMemes] = useState<IMeme[]>([]);
@@ -31,13 +32,9 @@ export function App() {
 
 	return (
 		<>
+			<Header onSearchBarChange={e => setFilterText(e.target.value)} />
+
 			<main>
-				<h1 className={styles.title}>Meme Creator</h1>
-
-				<form onSubmit={e => e.preventDefault()} className={styles.search}>
-					<Input placeholder="Search for a meme template..." onChange={e => setFilterText(e.target.value)} />
-				</form>
-
 				{isLoading ? (
 					<p>Loading...</p>
 				) : (
