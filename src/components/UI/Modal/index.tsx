@@ -37,7 +37,9 @@ export function Modal(props: React.PropsWithChildren<ModalProps>): JSX.Element {
 					<h3>{props.title}</h3>
 
 					<button className={styles.closeBtn} onClick={() => props.close()}>
-						<span>X</span> {/* TODO: Use an icon for this */}
+						<svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="m13.5.5-13 13M.5.5l13 13" stroke="#000" stroke-linecap="round" stroke-linejoin="round" />
+						</svg>
 					</button>
 				</header>
 
