@@ -34,7 +34,7 @@ export function Modal(props: React.PropsWithChildren<ModalProps>): JSX.Element {
 		<section className={styles.modal} onPointerDown={handleClickOutsideContent}>
 			<div ref={contentRef} className={styles.wrapper}>
 				<header className={styles.header}>
-					<p>{props.title}</p>
+					<h3>{props.title}</h3>
 
 					<button className={styles.closeBtn} onClick={() => props.close()}>
 						<span>X</span> {/* TODO: Use an icon for this */}

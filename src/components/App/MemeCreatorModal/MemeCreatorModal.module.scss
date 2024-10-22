@@ -1,3 +1,5 @@
+@use '/src/styles/variables/' as variables;
+
 .formContainer {
     display: flex;
     flex-direction: column;
@@ -8,22 +10,41 @@
         margin-top: 1em;
     }
 
-    .templateSection {
+    .formDataSection {
         display: flex;
-        flex-direction: column;
-        gap: .1em;
+        align-items: center;
+        gap: 2em;
 
-        .label {
-            font-weight: 700;
+        .templateSection {
+            display: flex;
+            flex-direction: column;
+            gap: .1em;
+    
+            .label {
+                font-weight: 700;
+            }
+    
+            .img {
+                width: 250px;
+                height: 250px;
+                object-fit: contain;
+                border: var(--main-border);
+            }
         }
 
-        .img {
-            width: 250px;
-            height: 250px;
-            object-fit: contain;
-            border: var(--main-border);
+        .inputSection {
+            & > div {
+                margin: 1em 0;
+            }
+        }
+
+        @media #{variables.media-query(max, xl)} {
+            flex-direction: column;
+            justify-content: center;
+            gap: 1em;
         }
     }
+
 
     .imgResult {
         width: 400px;

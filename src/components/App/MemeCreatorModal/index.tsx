@@ -37,23 +37,28 @@ export function MemeCreatorModal(props: MemeCreatorModalProps) {
 				}}>
 				{!data ? (
 					<>
-						<div className={styles.templateSection}>
-							<label htmlFor="template" className={styles.label}>
-								Template
-							</label>
+						<div className={styles.formDataSection}>
+							<div className={styles.templateSection}>
+								<label htmlFor="template" className={styles.label}>
+									Template
+								</label>
 
-							<img src={props.url} alt={props.name} className={styles.img} />
-						</div>
-						{[...Array(props.box_count)].map((_, i) => (
-							<div key={`input-box-key-${i}`} className={styles.inputSection}>
-								<Input
-									label={`Text ${i + 1}`}
-									placeholder="Type something..."
-									onChange={e => setTextData(prev => ({ ...prev, [i]: e.target.value }))}
-								/>
+								<img src={props.url} alt={props.name} className={styles.img} />
 							</div>
-						))}
-						<Button type="submit">Create</Button>{' '}
+
+							<div className={styles.inputSection}>
+								{[...Array(props.box_count)].map((_, i) => (
+									<Input
+										key={`input-box-key-${i}`}
+										label={`Text ${i + 1}`}
+										placeholder="Type something..."
+										onChange={e => setTextData(prev => ({ ...prev, [i]: e.target.value }))}
+									/>
+								))}
+							</div>
+						</div>
+
+						<Button type="submit">Create</Button>
 					</>
 				) : (
 					<img src={data.data.url} alt={props.name} className={styles.imgResult} />
