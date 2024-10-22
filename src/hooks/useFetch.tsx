@@ -35,7 +35,10 @@ export function useFetch<T, P = any>(method: HttpMethod, path: string, payload?:
 			try {
 				const response = await fetch(`${baseURL}${_path}`, {
 					method,
-					body: payload ? JSON.stringify(payload) : undefined,
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded",
+					},
+					body: payload ? new URLSearchParams(payload) : undefined,
 					signal,
 				});
 

@@ -1,6 +1,6 @@
 // Custom properties
-@import './custom-properties';
+@use './custom-properties';
 
 // Global styles
-@import './global';
-@import './form-elements';
+@use './global';
+@use './form-elements';

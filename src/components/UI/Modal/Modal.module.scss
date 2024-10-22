@@ -1,0 +1,56 @@
+@use "src/styles/variables/" as variables;
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    backdrop-filter: blur(5px);
+    background-color: rgba(#000000, 0.20);
+    padding: 1rem;
+    opacity: 0;
+    animation: reveal ease-in-out 0.3s forwards;
+    z-index: 100;
+    color: #000;
+
+    .wrapper {
+        position: relative;
+        overflow-x: auto;
+        max-width: 50%;
+        min-width: 250px;
+        max-height: 80vh;
+        border-radius: 16px;
+        background-color: #fff;
+        transition: background-color ease-in-out .3s;
+        margin: auto;
+        z-index: 150;
+        display: flex;
+        flex-direction: column;
+        padding: var(--contentPadding);
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--contentPadding);
+
+            .closeBtn {
+                all: unset;
+                cursor: pointer;
+            }
+        }
+
+        
+        @media #{variables.media-query(max, lg)} {
+            max-width: 95%;
+        }
+    }
+}
+
+@keyframes reveal {
+    to {
+        opacity: 1;
+    }
+}

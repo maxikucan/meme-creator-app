@@ -1,0 +1,27 @@
+.button {
+    padding: 15px 25px;
+    background-color: var(--button-background);
+    color: #fff;
+    font-size: 100%;
+    outline: none;
+    border-width: 0;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    min-width: var(--button-size);
+    font-weight: 600;
+    letter-spacing: 1px;
+
+    &:disabled {
+        cursor: default;
+    }
+
+    &:hover {
+        background-color: var(--button-background-hover);
+    }
+}

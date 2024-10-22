@@ -1,0 +1,37 @@
+.memeContainer {
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 8px;
+    margin: 1em 0;
+
+    .title {
+        margin-top: .3em;
+        font-size: 16px;
+    }
+
+    &:hover{
+       scale: 1.1;
+    }
+
+    .formContainer{
+        max-height: 0px;
+        overflow: hidden;
+        transition: all .3s ease;
+
+        & > div {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+            padding: .5em;
+        }
+
+        &.selected {
+            max-height: 500px;
+        }      
+    }
+}
+

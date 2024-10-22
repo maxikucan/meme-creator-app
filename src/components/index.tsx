@@ -1,2 +1,2 @@
 export { App } from "./App";
-export { Meme } from "./Meme";
+export { Meme } from "./UI/Meme";
