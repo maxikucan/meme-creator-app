@@ -1,0 +1,20 @@
+@use "/src/styles/variables/" as variables; 
+
+.title {
+    text-align: center;
+}
+
+.search {
+    width: 40%;
+    margin: 2em auto;
+
+    @media #{variables.media-query(max, xl)} {
+        width: 80%;
+    }
+}
+
+.memesListContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minMax(300px, 1fr));
+    gap: .8em;
+}

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './Modal.module.scss';
 
 interface BaseModalProps {
@@ -37,7 +37,7 @@ export function Modal(props: React.PropsWithChildren<ModalProps>): JSX.Element {
 					<p>{props.title}</p>
 
 					<button className={styles.closeBtn} onClick={() => props.close()}>
-						<span>X</span>
+						<span>X</span> {/* TODO: Use an icon for this */}
 					</button>
 				</header>
 
@@ -53,6 +53,17 @@ export function Modal(props: React.PropsWithChildren<ModalProps>): JSX.Element {
 // eslint-disable-next-line react-refresh/only-export-components
 export function useModal(): useModalPayload {
 	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	/**
+	 * This effect prevents an unexpected scroll behaviour when the Modal is opened.
+	 */
+	useEffect(() => {
+		if (isModalOpen) {
+			document.body.style.overflowY = 'hidden';
+		} else {
+			document.body.style.overflowY = 'auto';
+		}
+	}, [isModalOpen]);
 
 	return {
 		openModal: () => setIsModalOpen(true),
