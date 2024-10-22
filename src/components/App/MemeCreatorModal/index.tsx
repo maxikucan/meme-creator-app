@@ -9,6 +9,7 @@ interface MemeCreatorModalProps extends Partial<IMeme> {}
 export function MemeCreatorModal(props: MemeCreatorModalProps) {
 	const [textData, setTextData] = useState<{ [key: string]: string }>({});
 	const [error, setError] = useState<any>(null);
+
 	const {
 		data,
 		fetchData,
@@ -27,7 +28,7 @@ export function MemeCreatorModal(props: MemeCreatorModalProps) {
 	});
 
 	async function handleSubmit() {
-		if (!Object.keys(textData).length) {
+		if (Object.keys(textData).length < props.box_count!) {
 			setError('Please complete all the texts before continue.');
 			return;
 		}
