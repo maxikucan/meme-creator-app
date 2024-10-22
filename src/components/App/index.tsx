@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useModal, Meme, Input } from '@/components/UI/';
+import { useModal, Meme } from '@/components/UI/';
 import { IMeme, IMemesResponse } from '@/interfaces/meme';
-import { MemeCreatorModal } from './MemeCreatorModal';
-import styles from './App.module.scss';
 import { useFetch } from '@/hooks';
 import { Header } from './Header';
+import { MemeCreatorModal } from './MemeCreatorModal';
+import styles from './App.module.scss';
 
 export function App() {
 	const [memes, setMemes] = useState<IMeme[]>([]);
