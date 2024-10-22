@@ -52,7 +52,6 @@ export function Modal(props: React.PropsWithChildren<ModalProps>): JSX.Element {
 /**
  * A hook to expose Modal configuration
  */
-// eslint-disable-next-line react-refresh/only-export-components
 export function useModal(): useModalPayload {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
