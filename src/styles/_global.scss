@@ -24,6 +24,10 @@ body {
 	overflow-x: hidden;
 }
 
+main {
+	min-height: 10vh;
+}
+
 // This fixes iphone input issue
 input,
 input:before,

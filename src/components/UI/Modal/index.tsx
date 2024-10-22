@@ -4,6 +4,7 @@ import styles from './Modal.module.scss';
 interface BaseModalProps {
 	title?: string;
 	dontCloseClickingOutside?: boolean;
+	scrollable?: boolean;
 }
 
 interface ModalProps extends BaseModalProps {
@@ -38,12 +39,12 @@ export function Modal(props: React.PropsWithChildren<ModalProps>): JSX.Element {
 
 					<button className={styles.closeBtn} onClick={() => props.close()}>
 						<svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="m13.5.5-13 13M.5.5l13 13" stroke="#000" stroke-linecap="round" stroke-linejoin="round" />
+							<path d="m13.5.5-13 13M.5.5l13 13" stroke="#000" strokeLinecap="round" strokeLinejoin="round" />
 						</svg>
 					</button>
 				</header>
 
-				{props.children}
+				<div style={{ overflowY: props.scrollable ? 'auto' : 'hidden' }}>{props.children}</div>
 			</div>
 		</section>
 	);

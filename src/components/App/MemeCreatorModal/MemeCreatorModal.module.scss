@@ -13,6 +13,7 @@
     .formDataSection {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         gap: 2em;
 
         .templateSection {
@@ -27,12 +28,14 @@
             .img {
                 width: 250px;
                 height: 250px;
-                object-fit: contain;
+                object-fit: fill;
                 border: var(--main-border);
             }
         }
 
         .inputSection {
+            min-width: 300px;
+
             & > div {
                 margin: 1em 0;
             }

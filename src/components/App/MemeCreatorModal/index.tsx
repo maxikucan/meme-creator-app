@@ -8,7 +8,13 @@ interface MemeCreatorModalProps extends Partial<IMeme> {}
 
 export function MemeCreatorModal(props: MemeCreatorModalProps) {
 	const [textData, setTextData] = useState<{ [key: string]: string }>({});
-	const { data, fetchData /* error, isLoading */ } = useFetch<IMemeCreatedResponse, IMemePayload>('POST', '/caption_image', {
+	const [error, setError] = useState<any>(null);
+	const {
+		data,
+		fetchData,
+		error: fetchError,
+		isLoading
+	} = useFetch<IMemeCreatedResponse, IMemePayload>('POST', '/caption_image', {
 		username: import.meta.env.VITE_API_USERNAME,
 		password: import.meta.env.VITE_API_PASSWORD,
 		template_id: props.id as string,
@@ -20,10 +26,15 @@ export function MemeCreatorModal(props: MemeCreatorModalProps) {
 	});
 
 	async function handleSubmit() {
-		try {
-			fetchData();
-		} catch (error) {
-			console.error(error);
+		if (!Object.keys(textData).length) {
+			setError('Please complete all the texts before continue.');
+			return;
+		}
+
+		await fetchData();
+
+		if (fetchError) {
+			setError(fetchError);
 		}
 	}
 
@@ -58,7 +69,11 @@ export function MemeCreatorModal(props: MemeCreatorModalProps) {
 							</div>
 						</div>
 
-						<Button type="submit">Create</Button>
+						{error && <p style={{ color: 'red' }}>{error}</p>}
+
+						<Button type="submit" isLoading={isLoading}>
+							Create
+						</Button>
 					</>
 				) : (
 					<img src={data.data.url} alt={props.name} className={styles.imgResult} />

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useModal, Meme } from '@/components/UI/';
+import { useModal, Meme, Spinner } from '@/components/UI/';
 import { IMeme, IMemesResponse } from '@/interfaces/meme';
 import { useFetch } from '@/hooks';
 import { Header } from './Header';
@@ -36,7 +36,9 @@ export function App() {
 
 			<main>
 				{isLoading ? (
-					<p>Loading...</p>
+					<div style={{ display: 'flex', justifyContent: 'center' }}>
+						<Spinner />
+					</div>
 				) : (
 					<section className={styles.memesListContainer}>
 						{filteredMemes.map(meme => (
@@ -55,7 +57,7 @@ export function App() {
 				)}
 			</main>
 
-			<Modal title="Create meme">
+			<Modal title="Create meme" scrollable>
 				<MemeCreatorModal {...selectedMeme} />
 			</Modal>
 		</>
