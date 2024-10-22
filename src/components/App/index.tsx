@@ -39,6 +39,8 @@ export function App() {
 					<div style={{ display: 'flex', justifyContent: 'center' }}>
 						<Spinner />
 					</div>
+				) : !isLoading && !data ? (
+					<p style={{ textAlign: 'center', color: 'red' }}>Something went wrong, please refresh your browser or try again later.</p>
 				) : (
 					<section className={styles.memesListContainer}>
 						{filteredMemes.map(meme => (
