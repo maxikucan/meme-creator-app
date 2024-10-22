@@ -1,3 +1,5 @@
+@use "/src/styles/utils/mixins" as mixins;
+
 *,
 *::before,
 *::after {
@@ -13,6 +15,7 @@ html {
 	font-family: "Raleway", sans-serif;
 	font-optical-sizing: auto;
 	font-style: normal;
+	@include mixins.custom-scrollbar($size: 6px);
 }
 
 body {
