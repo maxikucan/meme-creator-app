@@ -14,7 +14,7 @@ export function className(...classNames: any): ClassName {
 	const classes = [];
 
 	for (const className of classNames) {
-		if (typeof className === "object") {
+		if (typeof className === 'object') {
 			for (const key in className) {
 				if (className.hasOwnProperty!(key) && className[key]) {
 					classes.push(key);
@@ -25,5 +25,5 @@ export function className(...classNames: any): ClassName {
 		}
 	}
 
-	return { className: classes.join(" ") };
+	return { className: classes.join(' ') };
 }

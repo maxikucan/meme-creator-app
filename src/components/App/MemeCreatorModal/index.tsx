@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { useFetch } from "../../../../hooks";
-import { IMeme, IMemeCreatedResponse, IMemePayload } from "../../../../interfaces/meme";
-import { Button, Input } from "../../../UI";
-import styles from "./MemeCreatorModal.module.scss";
+import { useState } from 'react';
+import { Button, Input } from '@/components/UI';
+import { useFetch } from '@/hooks';
+import { IMeme, IMemeCreatedResponse, IMemePayload } from '@/interfaces/meme';
+import styles from './MemeCreatorModal.module.scss';
 
 interface MemeCreatorModalProps extends Partial<IMeme> {}
 
 export function MemeCreatorModal(props: MemeCreatorModalProps) {
 	const [textData, setTextData] = useState<{ [key: string]: string }>({});
-	const { data, fetchData /* error, isLoading */ } = useFetch<IMemeCreatedResponse, IMemePayload>("POST", "/caption_image", {
+	const { data, fetchData /* error, isLoading */ } = useFetch<IMemeCreatedResponse, IMemePayload>('POST', '/caption_image', {
 		username: import.meta.env.VITE_API_USERNAME,
 		password: import.meta.env.VITE_API_PASSWORD,
 		template_id: props.id as string,
@@ -16,7 +16,7 @@ export function MemeCreatorModal(props: MemeCreatorModalProps) {
 		text1: textData[1],
 		text2: textData[2],
 		text3: textData[3],
-		text4: textData[4],
+		text4: textData[4]
 	});
 
 	async function handleSubmit() {
@@ -31,14 +31,12 @@ export function MemeCreatorModal(props: MemeCreatorModalProps) {
 		<>
 			<form
 				className={styles.formContainer}
-				onSubmit={(e) => {
+				onSubmit={e => {
 					e.preventDefault();
 					handleSubmit();
-				}}
-			>
+				}}>
 				{!data ? (
 					<>
-						{" "}
 						<div className={styles.templateSection}>
 							<label htmlFor="template" className={styles.label}>
 								Template
@@ -51,11 +49,11 @@ export function MemeCreatorModal(props: MemeCreatorModalProps) {
 								<Input
 									label={`Text ${i + 1}`}
 									placeholder="Type something..."
-									onChange={(e) => setTextData((prev) => ({ ...prev, [i]: e.target.value }))}
+									onChange={e => setTextData(prev => ({ ...prev, [i]: e.target.value }))}
 								/>
 							</div>
 						))}
-						<Button type="submit">Create</Button>{" "}
+						<Button type="submit">Create</Button>{' '}
 					</>
 				) : (
 					<img src={data.data.url} alt={props.name} className={styles.imgResult} />

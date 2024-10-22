@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import styles from "./Modal.module.scss";
+import { useRef, useState } from 'react';
+import styles from './Modal.module.scss';
 
 interface BaseModalProps {
 	title?: string;
@@ -57,13 +57,13 @@ export function useModal(): useModalPayload {
 	return {
 		openModal: () => setIsModalOpen(true),
 		closeModal: () => setIsModalOpen(false),
-		Modal: (props) =>
+		Modal: props =>
 			isModalOpen ? (
 				<Modal {...props} close={() => setIsModalOpen(false)}>
 					{props.children}
 				</Modal>
 			) : (
 				<></>
-			),
+			)
 	};
 }

@@ -1,3 +1,3 @@
-export { Meme } from "./Meme";
-// eslint-disable-next-line react-refresh/only-export-components
-export * from "./Form";
+export { Meme } from './Meme';
+export * from './Form';
+export * from './Modal';

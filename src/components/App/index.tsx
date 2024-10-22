@@ -1,13 +1,60 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Home } from "../Pages";
-
-const router = createBrowserRouter([
-	{
-		path: "/",
-		element: <Home />,
-	},
-]);
+import { useState } from 'react';
+import { memesMock } from '@/mocks/memes';
+import { useModal, Meme } from '@/components/UI/';
+import { IMeme } from '@/interfaces/meme';
+import { MemeCreatorModal } from './MemeCreatorModal';
+import styles from './Home.module.scss';
 
 export function App() {
-	return <RouterProvider router={router} />;
+	const [memes] = useState<IMeme[]>(memesMock);
+	const [selectedMeme, setSelectedMeme] = useState<IMeme | null>(null);
+	const { Modal, openModal } = useModal();
+
+	/* const { data, fetchData, isLoading, error } = useFetch<IMemesResponse>("GET", "/get_memes"); */
+	/* const { data, fetchData } = useFetch<any>("POST", "/caption_image", {
+		template_id: "181913649",
+		username: import.meta.env.VITE_API_USERNAME,
+		password: import.meta.env.VITE_API_PASSWORD,
+		text0: "Hello",
+		text1: "World",
+	}); */
+
+	/* useEffect(() => {
+		if (!memes.length && !error) {
+			fetchData();
+		}
+
+		if (data) {
+			setMemes(data?.data.memes);
+		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [error, memes.length, data]); */
+
+	return (
+		<>
+			<main>
+				<h1 className={styles.title}>Meme creator</h1>
+
+				<section className={styles.memesListContainer}>
+					{memes.map(meme => (
+						<Meme
+							key={meme.id}
+							{...meme}
+							memes={memes}
+							selectedMeme={selectedMeme}
+							setSelectedMeme={setSelectedMeme}
+							onClick={() => {
+								openModal();
+							}}
+						/>
+					))}
+				</section>
+			</main>
+
+			<Modal title="Create meme">
+				<MemeCreatorModal {...selectedMeme} />
+			</Modal>
+		</>
+	);
 }

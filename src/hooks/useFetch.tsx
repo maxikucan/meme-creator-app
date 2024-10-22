@@ -1,8 +1,8 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState } from 'react';
 
 const baseURL = import.meta.env.VITE_API_URL;
 
-type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
+type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 interface useFetchPayload<T> {
 	data: T | null;
@@ -36,10 +36,10 @@ export function useFetch<T, P = any>(method: HttpMethod, path: string, payload?:
 				const response = await fetch(`${baseURL}${_path}`, {
 					method,
 					headers: {
-						"Content-Type": "application/x-www-form-urlencoded",
+						'Content-Type': 'application/x-www-form-urlencoded'
 					},
 					body: payload ? new URLSearchParams(payload) : undefined,
-					signal,
+					signal
 				});
 
 				setData(await response.json());
@@ -55,7 +55,7 @@ export function useFetch<T, P = any>(method: HttpMethod, path: string, payload?:
 		},
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[method, path, payload, signal],
+		[method, path, payload, signal]
 	);
 
 	return { data, fetchData, isLoading, error };
