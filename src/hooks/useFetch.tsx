@@ -1,7 +1,5 @@
 import { useCallback, useState } from 'react';
 
-const baseURL = import.meta.env.VITE_API_URL;
-
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 interface useFetchPayload<T> {
@@ -10,6 +8,8 @@ interface useFetchPayload<T> {
 	isLoading: boolean;
 	error: any;
 }
+
+const baseURL = import.meta.env.VITE_API_URL;
 
 /**
  * Fetches an specific endpoint given.
