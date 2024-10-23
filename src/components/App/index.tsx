@@ -19,13 +19,25 @@ export function App() {
 	const { data, fetchData, isLoading, error } = useFetch<IMemesResponse>('GET', '/get_memes');
 
 	useEffect(() => {
-		if (!memes.length && !error) {
-			fetchData();
+		const abortController = new AbortController();
+
+		if (!data) {
+			/* This API requires the data with this specific fetch config */
+			fetchData({
+				fetchConfigOverride: {
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					},
+					signal: abortController.signal
+				}
+			});
 		}
 
 		if (data) {
 			setMemes(data?.data.memes);
 		}
+
+		return () => abortController.abort();
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [error, memes.length, data]);

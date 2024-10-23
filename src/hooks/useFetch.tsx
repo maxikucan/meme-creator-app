@@ -2,11 +2,18 @@ import { useCallback, useState } from 'react';
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
-interface useFetchPayload<T> {
+interface useFetchPayload<T, P> {
 	data: T | null;
-	fetchData: (param?: string) => Promise<T | null | undefined>;
+	fetchData: (fetchDataConfig?: IFetchDataConfig<P>) => Promise<T | null | undefined>;
 	isLoading: boolean;
 	error: any;
+}
+
+interface IFetchDataConfig<P> {
+	payload?: P;
+	routeParam?: string;
+	queryParams?: URLSearchParams;
+	fetchConfigOverride?: RequestInit;
 }
 
 const baseURL = import.meta.env.VITE_API_URL;
@@ -20,26 +27,27 @@ const baseURL = import.meta.env.VITE_API_URL;
  *
  * @returns Returns an object with the fetched data variable, a callback function to execute the fetch action, a isLoading boolean and errors object.
  */
-export function useFetch<T, P = any>(method: HttpMethod, path: string, payload?: P, signal?: AbortSignal): useFetchPayload<T> {
+export function useFetch<T, P = any>(method: HttpMethod, path: string): useFetchPayload<T, P> {
 	const [data, setData] = useState<T | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
 
 	const fetchData = useCallback(
-		async (param?: string) => {
-			const _path = param ? `${path}${`/${param}`}` : path;
+		async (fetchDataConfig?: IFetchDataConfig<P>) => {
+			const _path = fetchDataConfig?.routeParam ? `${path}${`/${fetchDataConfig?.routeParam}`}` : path;
+			const queryString = fetchDataConfig?.queryParams ? new URLSearchParams(fetchDataConfig?.queryParams).toString() : null;
 
 			setError(null);
 			setIsLoading(true);
 
 			try {
-				const response = await fetch(`${baseURL}${_path}`, {
+				const response = await fetch(`${baseURL}${_path}${queryString ? '?' + queryString : ''}`, {
 					method,
 					headers: {
-						'Content-Type': 'application/x-www-form-urlencoded'
+						'Content-Type': 'application/json'
 					},
-					body: payload ? new URLSearchParams(payload) : undefined,
-					signal
+					body: fetchDataConfig?.payload ? JSON.stringify(fetchDataConfig?.payload) : undefined,
+					...fetchDataConfig?.fetchConfigOverride
 				});
 
 				setData(await response.json());
@@ -53,9 +61,7 @@ export function useFetch<T, P = any>(method: HttpMethod, path: string, payload?:
 				setIsLoading(false);
 			}
 		},
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[method, path, payload, signal]
+		[method, path]
 	);
 
 	return { data, fetchData, isLoading, error };

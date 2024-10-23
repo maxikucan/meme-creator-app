@@ -26,11 +26,8 @@ export interface IMemePayload {
 	template_id: string;
 	username: string;
 	password: string;
-	text0: string;
-	text1: string;
-	text2?: string;
-	text3?: string;
-	text4?: string;
+	text0?: string;
+	text1?: string;
 	font?: string;
 	max_font_size?: number;
 	boxes?: Box[];
@@ -38,10 +35,10 @@ export interface IMemePayload {
 
 export interface Box {
 	text: string;
-	x: number;
-	y: number;
-	width: number;
-	height: number;
-	color: string;
-	outline_color: string;
+	x?: number;
+	y?: number;
+	width?: number;
+	height?: number;
+	color?: string;
+	outline_color?: string;
 }

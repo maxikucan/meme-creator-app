@@ -10,30 +10,43 @@ export function MemeCreatorModal(props: MemeCreatorModalProps) {
 	const [textData, setTextData] = useState<{ [key: string]: string }>({});
 	const [error, setError] = useState<any>(null);
 
-	const {
-		data,
-		fetchData,
-		error: fetchError,
-		isLoading
-	} = useFetch<IMemeCreatedResponse, IMemePayload>('POST', '/caption_image', {
-		username: import.meta.env.VITE_API_USERNAME,
-		password: import.meta.env.VITE_API_PASSWORD,
-		template_id: props.id as string,
-		max_font_size: 40,
-		text0: textData[0],
-		text1: textData[1],
-		text2: textData[2],
-		text3: textData[3],
-		text4: textData[4]
-	});
+	const { data, fetchData, error: fetchError, isLoading } = useFetch<IMemeCreatedResponse, IMemePayload>('POST', '/caption_image');
 
 	async function handleSubmit() {
 		if (Object.keys(textData).length < props.box_count!) {
 			setError('Please complete all the texts before continue.');
-			return;
 		}
 
-		await fetchData();
+		const payload: IMemePayload = {
+			username: import.meta.env.VITE_API_USERNAME,
+			password: import.meta.env.VITE_API_PASSWORD,
+			template_id: props.id as string,
+			max_font_size: 40,
+			boxes: Object.values(textData).map(text => ({ text: text.toUpperCase() }))
+		};
+
+		/* This API requires the data with this specific fetch config */
+		const formBody = Object.keys(payload)
+			.map(key => {
+				if (key === 'boxes') {
+					return payload[key]!.map((box, index) => {
+						return Object.keys(box)
+							.map(boxKey => `boxes[${index}][${boxKey}]=${encodeURIComponent((box as any)[boxKey])}`)
+							.join('&');
+					}).join('&');
+				}
+				return `${encodeURIComponent(key)}=${encodeURIComponent((payload as any)[key])}`;
+			})
+			.join('&');
+
+		await fetchData({
+			fetchConfigOverride: {
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				body: formBody
+			}
+		});
 
 		if (fetchError) {
 			setError(fetchError);
